@@ -15,7 +15,7 @@ class CarouselListViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     
     private let viewModel = CarouselViewModel()
-    
+    var totalItems =  [Item]()
     private var isBottomSheetVisible = false
     
     
@@ -32,7 +32,7 @@ class CarouselListViewController: UIViewController {
         pageControl.currentPage = 0
         pageControl.currentPageIndicatorTintColor = .blue
         pageControl.pageIndicatorTintColor = .lightGray
-        
+        totalItems = viewModel.items
     }
     
     @IBAction func showButton(sender: UIButton) {
@@ -73,7 +73,11 @@ extension CarouselListViewController: UICollectionViewDataSource, UICollectionVi
 extension CarouselListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        viewModel.items = viewModel.items.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        if searchText.isEmpty{
+            viewModel.items = totalItems
+        } else {
+            viewModel.items = viewModel.items.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
         tableView.reloadData()
     }
 }

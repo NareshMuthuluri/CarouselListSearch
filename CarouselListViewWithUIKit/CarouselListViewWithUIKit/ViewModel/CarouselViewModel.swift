@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import Combine
 
 class CarouselViewModel: ObservableObject {
     
-    @Published var items: [Item] = []
-    @Published var searchTerm: String = ""
+    var items: [Item] = []
+    var searchTerm: String = ""
     
     
     init() {
